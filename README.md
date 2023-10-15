@@ -1,11 +1,7 @@
 # employee-crud
 
 ## Getting Started
-**Frontend**\
-`cd frontend && npm run start`
-
-**Backend**\
-`cd backend && npm run start`
+`npm run dev`
 
 ## Description
 A ReactJS SPA that performs CRUD operations against a MySQL database.

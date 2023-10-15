@@ -5,6 +5,7 @@ import { Space, Table, Tag, Typography } from 'antd';
 import { EditOutlined } from '@ant-design/icons';
 import Link from 'next/link';
 import RemoveEmployee from './Remove';
+import withCurrency from '../hoc/withCurrency';
 
 const List = (props) => {
     const { employees } = props;
@@ -34,12 +35,10 @@ const List = (props) => {
           dataIndex: 'salary',
           key: 'salary',
           render: (_, record) => {
+            const ResultComponent = ({...props}) => withCurrency({...props, data: record.salary})(Text);
             return (
-            <Text>{(record.salary).toLocaleString('en-ZA', {
-                style: 'currency',
-                currency: 'ZAR'
-              })}
-            </Text>)
+              <ResultComponent />
+            )
           }
         },
         {
