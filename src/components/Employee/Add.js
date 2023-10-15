@@ -4,7 +4,6 @@ import Link from 'next/link';
 
 const AddEmployee = () => {
     return (
-        
         <Link href={"/employee/create"}>
             <Button type="primary" icon={<UserAddOutlined />}>
                 Add Employee

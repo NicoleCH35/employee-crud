@@ -1,5 +1,9 @@
-const Create = () => {
-    return <p>Create new employee</p>;
+import { EmployeeForm } from '@/components';
+
+const EmplpoyeeCreate = () => {
+    return (
+        <EmployeeForm />
+    );
 };
 
-export default Create;
+export default EmplpoyeeCreate;

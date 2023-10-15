@@ -5,9 +5,7 @@ const Header = () => {
     return (
         <Row justify="space-between" align="middle">
             <h2>Employee CRUD</h2>
-            {/* <div> */}
-                <AddEmployee />
-            {/* </div> */}
+            <AddEmployee />
         </Row>
     );
 };

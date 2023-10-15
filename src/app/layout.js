@@ -21,10 +21,13 @@ export default function RootLayout({ children }) {
         <div
           style={{
             borderRadius: 10,
-            backgroundColor: 'white', //'#D3E6ED'
-            margin: 50,
+            backgroundColor: 'white',
+            marginTop: 100,
             padding: 25,
             boxShadow: '2px 2px 10px black',
+            width: '75vw',
+            marginLeft: 'auto',
+            marginRight: 'auto'
           }}
         >
           <Header />

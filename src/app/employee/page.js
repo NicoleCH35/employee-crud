@@ -1,16 +1,21 @@
 import { EmployeeList } from '@/components';
-import axios from 'axios';
 
 const Employees = async () => {
     const fetchEmployees = async () => {
-        return axios.get('http://127.0.0.1:3000/api/employees')
-            .then((res) => {
-                console.log(res.data.employees);
-                return res.data.employees;
-            })
-            .catch((e) => {
-                console.log('e', e);
-            });
+        try {
+          const res = await fetch('http://localhost:3000/api/employees', {
+            method: 'GET',
+            cache: 'no-store',
+          });
+      
+          if (!res.ok){
+            throw Error("Failed to fetch employees");
+          }
+          const data = await res.json();
+          return data.employees;
+        } catch (e) {
+          console.log("Error fetching employees", e);
+        }
     };
 
     const employees = await fetchEmployees();

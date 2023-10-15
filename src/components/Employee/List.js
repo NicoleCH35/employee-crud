@@ -1,82 +1,77 @@
 'use client';
 
-import { Space, Table, Tag } from 'antd';
+import React from 'react';
+import { Space, Table, Tag, Typography } from 'antd';
+import { EditOutlined } from '@ant-design/icons';
+import Link from 'next/link';
+import RemoveEmployee from './Remove';
 
-const List = () => {
+const List = (props) => {
+    const { employees } = props;
+    const { Text } = Typography;
+
     const columns = [
         {
-          title: 'Name',
-          dataIndex: 'name',
-          key: 'name',
-          render: (text) => <a>{text}</a>,
+          title: 'Firstname',
+          dataIndex: 'firstname',
+          key: 'firstname',
         },
         {
-          title: 'Age',
-          dataIndex: 'age',
-          key: 'age',
+          title: 'Lastname',
+          dataIndex: 'lastname',
+          key: 'lastname',
+        },
+        {
+          title: 'Role',
+          dataIndex: 'role',
+          key: 'role',
+          render: (_, record) => {
+            return <Tag color='blue'>{record.role}</Tag>
+          }
+        },
+        {
+          title: 'Salary',
+          dataIndex: 'salary',
+          key: 'salary',
+          render: (_, record) => {
+            return (
+            <Text>{(record.salary).toLocaleString('en-ZA', {
+                style: 'currency',
+                currency: 'ZAR'
+              })}
+            </Text>)
+          }
         },
         {
           title: 'Address',
-          dataIndex: 'address',
           key: 'address',
-        },
-        {
-          title: 'Tags',
-          key: 'tags',
-          dataIndex: 'tags',
-          render: (_, { tags }) => (
-            <>
-              {tags.map((tag) => {
-                let color = tag.length > 5 ? 'geekblue' : 'green';
-                if (tag === 'loser') {
-                  color = 'volcano';
-                }
-                return (
-                  <Tag color={color} key={tag}>
-                    {tag.toUpperCase()}
-                  </Tag>
-                );
-              })}
-            </>
-          ),
+          render: (_, record) => {
+            const addressKeys = ['street_number', 'street', 'city', 'country', 'zip_code'];
+            const address = Object.keys(record).reduce((ac, key) => {
+              if (addressKeys.includes(key)){
+                ac.push(record[key]);
+              }
+              return ac;
+            }, []);
+            return <Text>{address.join(", ")}</Text>
+          },
         },
         {
           title: 'Action',
           key: 'action',
           render: (_, record) => (
             <Space size="middle">
-              <a>Invite {record.name}</a>
-              <a>Delete</a>
+              <Link href={`/employee/update/${record.id}`}>
+                <EditOutlined />
+              </Link>
+              <RemoveEmployee id={record.id} />
             </Space>
           ),
         },
-      ];
-      const data = [
-        {
-          key: '1',
-          name: 'John Brown',
-          age: 32,
-          address: 'New York No. 1 Lake Park',
-          tags: ['nice', 'developer'],
-        },
-        {
-          key: '2',
-          name: 'Jim Green',
-          age: 42,
-          address: 'London No. 1 Lake Park',
-          tags: ['loser'],
-        },
-        {
-          key: '3',
-          name: 'Joe Black',
-          age: 32,
-          address: 'Sydney No. 1 Lake Park',
-          tags: ['cool', 'teacher'],
-        },
-      ];
+    ];
 
     return (
-        <Table columns={columns} dataSource={data} />
+        <Table columns={columns} dataSource={employees} rowKey={(record) => { return record.id; }} />
     );
 };
 
